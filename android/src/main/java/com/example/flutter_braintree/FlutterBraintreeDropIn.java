@@ -18,8 +18,10 @@ import com.braintreepayments.api.dropin.DropInActivity;
 import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
 import com.braintreepayments.api.models.GooglePaymentRequest;
+import com.braintreepayments.api.models.PayPalAccountNonce;
 import com.braintreepayments.api.models.PayPalRequest;
 import com.braintreepayments.api.models.PaymentMethodNonce;
+import com.braintreepayments.api.models.PostalAddress;
 
 import com.google.android.gms.wallet.TransactionInfo;
 import com.google.android.gms.wallet.WalletConstants;
@@ -159,6 +161,27 @@ public class FlutterBraintreeDropIn implements FlutterPlugin, ActivityAware, Met
 
           result.put("paymentMethodNonce", nonceResult);
           result.put("deviceData", dropInResult.getDeviceData());
+
+          if (paymentMethodNonce.getClass() == PayPalAccountNonce.class) {
+            PayPalAccountNonce paypalAccountNonce = (PayPalAccountNonce) paymentMethodNonce;
+            PostalAddress billingAddress = paypalAccountNonce.getBillingAddress();
+            String streetAddress = billingAddress.getStreetAddress();
+            String extendedAddress = billingAddress.getExtendedAddress();
+            String locality = billingAddress.getLocality();
+            String countryCodeAlpha2 = billingAddress.getCountryCodeAlpha2();
+            String postalCode = billingAddress.getPostalCode();
+            String region = billingAddress.getRegion();
+
+
+            HashMap<String, Object> billingAddressMap = new HashMap<String, Object>();
+            billingAddressMap.put("streetAddress", billingAddress.getStreetAddress());
+            billingAddressMap.put("extendedAddress", billingAddress.getExtendedAddress());
+            billingAddressMap.put("locality", billingAddress.getLocality());
+            billingAddressMap.put("countryCodeAlpha2", billingAddress.getCountryCodeAlpha2());
+            billingAddressMap.put("postalCode", billingAddress.getPostalCode());
+            billingAddressMap.put("region", billingAddress.getRegion());
+            result.put("billingAddress", billingAddressMap);
+          }
           activeResult.success(result);
         } else if (resultCode == Activity.RESULT_CANCELED) {
           activeResult.success(null);
