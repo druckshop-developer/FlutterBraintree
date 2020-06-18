@@ -4,6 +4,7 @@ class BraintreeDropInResult {
   const BraintreeDropInResult({
     @required this.paymentMethodNonce,
     @required this.deviceData,
+    this.billingAddress
   });
 
   factory BraintreeDropInResult.fromJson(dynamic source) {
@@ -12,6 +13,7 @@ class BraintreeDropInResult {
       paymentMethodNonce:
           BraintreePaymentMethodNonce.fromJson(source['paymentMethodNonce']),
       deviceData: source['deviceData'],
+      billingAddress: source['billingAddress']
     );
   }
 
@@ -20,6 +22,9 @@ class BraintreeDropInResult {
 
   /// String of device data. `null`, if `collectDeviceData` was set to false.
   final String deviceData;
+
+  /// The payment billing address.
+  final BraintreePostalAddress billingAddress;
 }
 
 class BraintreePaymentMethodNonce {
@@ -52,4 +57,34 @@ class BraintreePaymentMethodNonce {
 
   /// True if this payment method is the default for the current customer, false otherwise.
   final bool isDefault;
+}
+
+class BraintreePostalAddress {
+  const BraintreePostalAddress({
+    @required this.streetAddress,
+    @required this.extendedAddress,
+    @required this.locality,
+    @required this.countryCodeAlpha2,
+    @required this.postalCode,
+    @required this.region,
+  });
+
+  factory BraintreePostalAddress.fromJson(dynamic source) {
+    if (source == null) return null;
+    return BraintreePostalAddress(
+      streetAddress: source['streetAddress'],
+      extendedAddress: source['extendedAddress'],
+      locality: source['locality'],
+      countryCodeAlpha2: source['countryCodeAlpha2'],
+      postalCode: source['postalCode'],
+      region: source['region'],
+    );
+  }
+
+  final String streetAddress;
+  final String extendedAddress;
+  final String locality;
+  final String countryCodeAlpha2;
+  final String postalCode;
+  final String region;
 }
