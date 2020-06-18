@@ -13,7 +13,7 @@ class BraintreeDropInResult {
       paymentMethodNonce:
           BraintreePaymentMethodNonce.fromJson(source['paymentMethodNonce']),
       deviceData: source['deviceData'],
-      billingAddress: source['billingAddress']
+      billingAddress: BraintreePostalAddress.fromJson(source['billingAddress'])
     );
   }
 
