@@ -181,6 +181,32 @@ public class FlutterBraintreeDropIn implements FlutterPlugin, ActivityAware, Met
             billingAddressMap.put("postalCode", billingAddress.getPostalCode());
             billingAddressMap.put("region", billingAddress.getRegion());
             result.put("billingAddress", billingAddressMap);
+
+            PostalAddress shippingAddress = paypalAccountNonce.getShippingAddress();
+            streetAddress = shippingAddress.getStreetAddress();
+            extendedAddress = shippingAddress.getExtendedAddress();
+            locality = shippingAddress.getLocality();
+            countryCodeAlpha2 = shippingAddress.getCountryCodeAlpha2();
+            postalCode = shippingAddress.getPostalCode();
+            region = shippingAddress.getRegion();
+
+            HashMap<String, Object> shippingAddressMap = new HashMap<String, Object>();
+            shippingAddressMap.put("streetAddress", shippingAddress.getStreetAddress());
+            shippingAddressMap.put("extendedAddress", shippingAddress.getExtendedAddress());
+            shippingAddressMap.put("locality", shippingAddress.getLocality());
+            shippingAddressMap.put("countryCodeAlpha2", shippingAddress.getCountryCodeAlpha2());
+            shippingAddressMap.put("postalCode", shippingAddress.getPostalCode());
+            shippingAddressMap.put("region", shippingAddress.getRegion());
+            result.put("shippingAddress", shippingAddressMap);
+
+            String firstName = paypalAccountNonce.getFirstName() ;
+            result.put("firstName", firstName);
+            String lastName = paypalAccountNonce.getLastName() ;
+            result.put("lastName", lastName);
+            String email = paypalAccountNonce.getEmail() ;
+            result.put("email", email);
+            String phone = paypalAccountNonce.getPhone() ;
+            result.put("phone", phone);
           }
           activeResult.success(result);
         } else if (resultCode == Activity.RESULT_CANCELED) {
