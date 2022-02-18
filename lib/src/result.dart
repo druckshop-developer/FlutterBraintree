@@ -1,19 +1,27 @@
 import 'package:meta/meta.dart';
 
 class BraintreeDropInResult {
-  const BraintreeDropInResult({
-    @required this.paymentMethodNonce,
-    @required this.deviceData,
-    this.billingAddress
-  });
+  const BraintreeDropInResult(
+      {@required this.paymentMethodNonce,
+      @required this.deviceData,
+      this.billingAddress,
+      this.shippingAddress,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.phone});
 
   factory BraintreeDropInResult.fromJson(dynamic source) {
     if (source == null) return null;
     return BraintreeDropInResult(
-      paymentMethodNonce:
-          BraintreePaymentMethodNonce.fromJson(source['paymentMethodNonce']),
+      paymentMethodNonce: BraintreePaymentMethodNonce.fromJson(source['paymentMethodNonce']),
       deviceData: source['deviceData'],
-      billingAddress: BraintreePostalAddress.fromJson(source['billingAddress'])
+      billingAddress: BraintreePostalAddress.fromJson(source['billingAddress']),
+      shippingAddress: BraintreePostalAddress.fromJson(source['shippingAddress']),
+      firstName: source['firstName'],
+      lastName: source['lastName'],
+      email: source['email'],
+      phone: source['phone'],
     );
   }
 
@@ -25,6 +33,14 @@ class BraintreeDropInResult {
 
   /// The payment billing address.
   final BraintreePostalAddress billingAddress;
+
+  /// The payment shipping address.
+  final BraintreePostalAddress shippingAddress;
+
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String phone;
 }
 
 class BraintreePaymentMethodNonce {
