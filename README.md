@@ -3,8 +3,6 @@
 A Flutter plugin that wraps the native [Braintree SDKs](https://www.braintreepayments.com/features/seamless-checkout/drop-in-ui).
 Unlike other plugins, this plugin not only lets you start Braintree's native Drop-in UI, but also allows you to create your own custom Flutter UI with Braintree functionality.
 
-**Custom UI is still early in development and does not yet work on iOS!**
-
 ## Installation
 
 Add flutter_braintree to your `pubspec.yaml` file:
@@ -59,13 +57,17 @@ Add the wallet enabled meta-data tag to your `AndroidManifest.xml` (inside the `
 
 ### iOS
 
+You may need to add or uncomment the following line at the top of your `ios/Podfile`:
+```ruby
+platform :ios, '12.0'
+```
 **Warning:** Device data collection is not yet supported for iOS.
 
 #### PayPal / Venmo / 3D Secure
 
 In your App Delegate or your Runner project, you need to specify the URL scheme for redirecting payments as following:
 ```swift 
-BTAppSwitch.setReturnURLScheme("com.your-company.your-app.braintree")
+BTAppContextSwitcher.setReturnURLScheme("com.your-company.your-app.payments")
 ```
 
 Moreover, you need to specify the same URL scheme in your `Info.plist`: 
@@ -76,10 +78,10 @@ Moreover, you need to specify the same URL scheme in your `Info.plist`:
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>com.your-company.your-app.braintree</string>
+        <string>com.your-company.your-app.payments</string>
         <key>CFBundleURLSchemes</key>
         <array>
-            <string>com.your-company.your-app.braintree</string>
+            <string>com.your-company.your-app.payments</string>
         </array>
     </dict>
 </array>
@@ -89,14 +91,15 @@ See the official [Braintree documentation](https://developers.braintreepayments.
 
 ## Usage
 
-First, import the plugin:
+You must first create a [Braintree account](https://www.braintreepayments.com/). In your control panel you can create a tokenization key. You likely also want to set up a backend server. Make sure to read the [Braintree developer documentation](https://developers.braintreepayments.com/) so you understand all key concepts.
+
+In your code, import the plugin:
 ```dart
 import 'package:flutter_braintree/flutter_braintree.dart';
 ```
+You can then create your own user interface using Flutter or use Braintree's drop-in UI.
 
 ### Flutter UI
-
-**Warning:** This feature is only implemented for Android.
 
 #### Credit cards
 
@@ -106,6 +109,7 @@ final request = BraintreeCreditCardRequest(
   cardNumber: '4111111111111111',
   expirationMonth: '12',
   expirationYear: '2021',
+  cvv: '367'
 );
 ```
 

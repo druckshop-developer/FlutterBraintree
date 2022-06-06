@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 
 class BraintreeDropInResult {
+
   const BraintreeDropInResult(
       {@required this.paymentMethodNonce,
       @required this.deviceData,
@@ -12,7 +13,6 @@ class BraintreeDropInResult {
       this.phone});
 
   factory BraintreeDropInResult.fromJson(dynamic source) {
-    if (source == null) return null;
     return BraintreeDropInResult(
       paymentMethodNonce: BraintreePaymentMethodNonce.fromJson(source['paymentMethodNonce']),
       deviceData: source['deviceData'],
@@ -29,6 +29,7 @@ class BraintreeDropInResult {
   final BraintreePaymentMethodNonce paymentMethodNonce;
 
   /// String of device data. `null`, if `collectDeviceData` was set to false.
+
   final String deviceData;
 
   /// The payment billing address.
@@ -45,19 +46,20 @@ class BraintreeDropInResult {
 
 class BraintreePaymentMethodNonce {
   const BraintreePaymentMethodNonce({
-    @required this.nonce,
-    @required this.typeLabel,
-    @required this.description,
-    @required this.isDefault,
+    required this.nonce,
+    required this.typeLabel,
+    required this.description,
+    required this.isDefault,
+    this.paypalPayerId,
   });
 
   factory BraintreePaymentMethodNonce.fromJson(dynamic source) {
-    if (source == null) return null;
     return BraintreePaymentMethodNonce(
       nonce: source['nonce'],
       typeLabel: source['typeLabel'],
       description: source['description'],
       isDefault: source['isDefault'],
+      paypalPayerId: source['paypalPayerId'],
     );
   }
 
@@ -73,6 +75,9 @@ class BraintreePaymentMethodNonce {
 
   /// True if this payment method is the default for the current customer, false otherwise.
   final bool isDefault;
+
+  /// PayPal payer id if requesting for paypal nonce
+  final String? paypalPayerId;
 }
 
 class BraintreePostalAddress {
