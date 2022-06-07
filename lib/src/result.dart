@@ -33,10 +33,10 @@ class BraintreeDropInResult {
   final String deviceData;
 
   /// The payment billing address.
-  final BraintreePostalAddress billingAddress;
+  final BraintreePostalAddress? billingAddress;
 
   /// The payment shipping address.
-  final BraintreePostalAddress shippingAddress;
+  final BraintreePostalAddress? shippingAddress;
 
   final String firstName;
   final String lastName;
