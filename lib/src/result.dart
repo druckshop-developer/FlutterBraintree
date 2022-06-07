@@ -3,14 +3,14 @@ import 'package:meta/meta.dart';
 class BraintreeDropInResult {
 
   const BraintreeDropInResult(
-      {@required this.paymentMethodNonce,
-      @required this.deviceData,
+      {required this.paymentMethodNonce,
+      required this.deviceData,
       this.billingAddress,
       this.shippingAddress,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.phone});
+      this.firstName = "",
+      this.lastName="",
+      this.email="",
+      this.phone=""});
 
   factory BraintreeDropInResult.fromJson(dynamic source) {
     return BraintreeDropInResult(
@@ -82,16 +82,16 @@ class BraintreePaymentMethodNonce {
 
 class BraintreePostalAddress {
   const BraintreePostalAddress({
-    @required this.streetAddress,
-    @required this.extendedAddress,
-    @required this.locality,
-    @required this.countryCodeAlpha2,
-    @required this.postalCode,
-    @required this.region,
+    required this.streetAddress,
+    required this.extendedAddress,
+    required this.locality,
+    required this.countryCodeAlpha2,
+    required this.postalCode,
+    required this.region,
   });
 
   factory BraintreePostalAddress.fromJson(dynamic source) {
-    if (source == null) return null;
+    if (source == null) return BraintreePostalAddress(streetAddress:"", extendedAddress:"", locality: "",countryCodeAlpha2: "", postalCode: "",region: "");
     return BraintreePostalAddress(
       streetAddress: source['streetAddress'],
       extendedAddress: source['extendedAddress'],
