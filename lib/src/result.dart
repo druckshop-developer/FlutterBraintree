@@ -20,7 +20,7 @@ class BraintreeDropInResult {
       shippingAddress: BraintreePostalAddress.fromJson(source['shippingAddress']),
       firstName: source['firstName'] != null ? source['firstName']:"",
       lastName: source['lastName'] != null ? source['lastName']: "",
-      email: source['email' != null? source['email']]: "",
+      email: source['email'] != null? source['email']: "",
       phone: source['phone'] != null ? source['phone']:"",
     );
   }
