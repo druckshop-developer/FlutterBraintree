@@ -18,10 +18,10 @@ class BraintreeDropInResult {
       deviceData: source['deviceData'],
       billingAddress: BraintreePostalAddress.fromJson(source['billingAddress']),
       shippingAddress: BraintreePostalAddress.fromJson(source['shippingAddress']),
-      firstName: source['firstName'],
-      lastName: source['lastName'],
-      email: source['email'],
-      phone: source['phone'],
+      firstName: source['firstName'] != null ? source['firstName']:"",
+      lastName: source['lastName'] != null ? source['lastName']: "",
+      email: source['email' != null? source['email']]: "",
+      phone: source['phone'] != null ? source['phone']:"",
     );
   }
 
